@@ -40,8 +40,16 @@ public class OrgaoService {
         return orgaoRepository.save(novoOrgao);
     }
 
-    public int deletarOrgao(Long id){
+    public boolean deletarOrgao(Long id){
 
-        return orgaoRepository.deleteOrgao(id);
+        Orgao exists = orgaoRepository.findById(id).orElse(null);
+
+        if(exists != null){
+
+            orgaoRepository.deleteById(id);
+            return true;
+        }
+
+        return false;
     }
 }

@@ -58,9 +58,11 @@ public class AdmRestController {
     }
 
     @DeleteMapping("orgao/{id}")
-    public ResponseEntity<Integer> deleteOrgaos(@PathVariable Long id){
+    public ResponseEntity<Boolean> deleteOrgaos(@PathVariable Long id){
 
+        boolean found = orgaoService.deletarOrgao(id);
 
+        return found ? ResponseEntity.status(HttpStatus.OK).body(found) : ResponseEntity.status(HttpStatus.NOT_FOUND).body(found);
     }
 
 }

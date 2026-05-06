@@ -1,8 +1,6 @@
 package unoeste.fipp.backend.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import unoeste.fipp.backend.entities.Orgao;
 
@@ -20,8 +18,8 @@ public interface OrgaoRepository extends JpaRepository<Orgao,Long> {
 //    @Modifying
 //    @Query("UPDATE Orgao o SET o.nome = :nome WHERE o.id = :id")
 //    public int updateOrgao(Long id,String nome);
-//
-    @Modifying
-    @Query("DELETE FROM Orgao o WHERE o.id = :id")
-    public int deleteOrgao(Long id);
+
+//    @Modifying
+//    @Query("DELETE FROM Orgao o WHERE o.id = :id")
+//    public int deleteOrgao(Long id);
 }
