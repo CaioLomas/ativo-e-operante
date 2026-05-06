@@ -8,6 +8,7 @@ public class Orgao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="org_id")
     private Long id;
 
     @Column(name="org_nome")

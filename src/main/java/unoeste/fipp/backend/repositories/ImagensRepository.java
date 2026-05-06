@@ -1,4 +1,8 @@
 package unoeste.fipp.backend.repositories;
 
-public interface ImagensRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import unoeste.fipp.backend.entities.Imagens;
+
+public interface ImagensRepository extends JpaRepository<Imagens, Long> {
+
 }

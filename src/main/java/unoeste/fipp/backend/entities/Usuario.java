@@ -8,6 +8,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="usu_id")
     private Long id;
 
     @Column(name="usu_cpf")
@@ -17,21 +18,21 @@ public class Usuario {
     private String email;
 
     @Column(name="usu_senha")
-    private int senha;
+    private String senha;
 
     @Column(name="usu_nivel")
     private int nivel;
 
-    public Usuario(){this(0L,"","",0,0);}
+    public Usuario(){this(0L,"","","",0);}
 
-    public Usuario(String cpf, String email, int senha, int nivel) {
+    public Usuario(String cpf, String email, String senha, int nivel) {
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
         this.nivel = nivel;
     }
 
-    public Usuario(Long id, String cpf, String email, int senha, int nivel) {
+    public Usuario(Long id, String cpf, String email, String senha, int nivel) {
         this.id = id;
         this.cpf = cpf;
         this.email = email;
@@ -63,11 +64,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public int getSenha() {
+    public String getSenha() {
         return senha;
     }
 
-    public void setSenha(int senha) {
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 

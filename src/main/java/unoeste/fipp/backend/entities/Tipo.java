@@ -8,6 +8,7 @@ public class Tipo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="tip_id")
     private Long id;
 
     @Column(name="tip_nome")
