@@ -38,7 +38,7 @@ public class Denuncia {
     @JoinColumn(name="usu_id")
     private Usuario usuario;
 
-    @OneToOne(mappedBy="denuncia")
+    @OneToOne(mappedBy = "denuncia", cascade = CascadeType.REMOVE)
     private Feedback feedback;
 
     @OneToMany(mappedBy="denuncia",fetch = FetchType.EAGER)

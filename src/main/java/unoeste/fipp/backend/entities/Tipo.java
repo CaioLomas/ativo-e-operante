@@ -2,6 +2,8 @@ package unoeste.fipp.backend.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="tipo")
 public class Tipo {
@@ -13,6 +15,9 @@ public class Tipo {
 
     @Column(name="tip_nome")
     private String nome;
+
+    @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Denuncia> denuncias;
 
     public Tipo(){this(0L,"");}
 
