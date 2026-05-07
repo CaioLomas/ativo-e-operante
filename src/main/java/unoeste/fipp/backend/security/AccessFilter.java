@@ -3,22 +3,30 @@ package unoeste.fipp.backend.security;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
 public class AccessFilter implements Filter {
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String token= ((HttpServletRequest)servletRequest).getHeader("Authorization");
-        //if(token!=null && JWTTokenProvider.verifyToken(token)) {
-        if(0==0){
-            filterChain.doFilter(servletRequest, servletResponse);
+
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+
+        String token = request.getHeader("Authorization");
+
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
         }
-        else {
-            ((HttpServletResponse) servletResponse).setStatus(500);
-            servletResponse.getOutputStream().write("Não autorizado ".getBytes());
+
+        if (token != null && JWTTokenProvider.verifyToken(token)) {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"erro\": \"Acesso Negado: Token inválido ou expirado.\"}");
         }
     }
 }

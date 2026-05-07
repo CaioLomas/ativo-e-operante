@@ -7,4 +7,6 @@ import unoeste.fipp.backend.entities.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
+
+    public Usuario findByEmailAndSenha(String email, String senha);
 }

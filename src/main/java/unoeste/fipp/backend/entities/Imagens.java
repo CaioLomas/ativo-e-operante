@@ -1,11 +1,11 @@
 package unoeste.fipp.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="imagens")
 public class Imagens {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="img_id")
@@ -14,6 +14,7 @@ public class Imagens {
     @Column(name="img_name")
     private String name;
 
+    @JsonIgnore
     @JoinColumn(name="den_id")
     @ManyToOne(fetch=FetchType.LAZY)
     private Denuncia denuncia;

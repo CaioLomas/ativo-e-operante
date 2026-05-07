@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import unoeste.fipp.backend.entities.Denuncia;
 import unoeste.fipp.backend.entities.Orgao;
 import unoeste.fipp.backend.entities.Tipo;
+import unoeste.fipp.backend.security.JWTTokenProvider;
 import unoeste.fipp.backend.services.*;
 
 import java.util.List;
@@ -80,12 +81,16 @@ public class CidadaoRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novaDenuncia);
     }
 
-    @GetMapping("/denuncia/list/{id}") // CORRIGIR QUANDO IMPLEMENTAR O JWT, POIS AQUI O ACESSO ESTÁ PÚBLICO PARA QUALQUER ID COLOCADO
-    public ResponseEntity<List<Denuncia>> getDenunciasCidadao(@PathVariable Long id){
+    @GetMapping("/denuncia/list")
+    public ResponseEntity<List<Denuncia>> getDenunciasCidadao(@RequestHeader("Authorization") String tokenHeader){
 
-        List<Denuncia> denuncias;
+        String token = tokenHeader.replace("Bearer ", "");
 
-        denuncias = denunciaService.consultaDenunciasCidadao(id);
+        String sujeitoDoToken = JWTTokenProvider.getAllClaimsFromToken(token).getSubject();
+
+        Long idUsuarioLogado = Long.parseLong(sujeitoDoToken);
+
+        List<Denuncia> denuncias = denunciaService.consultaDenunciasCidadao(idUsuarioLogado);
 
         return ResponseEntity.status(HttpStatus.OK).body(denuncias);
     }

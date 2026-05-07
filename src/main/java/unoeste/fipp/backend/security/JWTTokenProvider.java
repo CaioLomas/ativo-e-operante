@@ -1,75 +1,66 @@
 package unoeste.fipp.backend.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+
+import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-import javax.crypto.SecretKey;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-
 public class JWTTokenProvider {
-    private static final SecretKey CHAVE = Keys.hmacShaKeyFor(
-            "MINHACHAVESECRETA_MINHACHAVESECRETA".getBytes(StandardCharsets.UTF_8));
 
-    static public String createToken(String usuario,String nivel) 
-    {       
-        String jwtToken = Jwts.builder()
-            .setSubject(usuario)
-            .setIssuer("localhost:8080")
-            .claim("nivel", nivel)
-            .setIssuedAt(new Date())
-            .setExpiration(Date.from(LocalDateTime.now().plusMinutes(15L)
-                .atZone(ZoneId.systemDefault()).toInstant()))
-            .signWith(CHAVE)
-            .compact();
-        return jwtToken;        
+    private static final SecretKey CHAVE = Keys.hmacShaKeyFor(
+            "MINHACHAVESECRETA_MINHACHAVESECRETA_SEGURANCA_TOTAL".getBytes(StandardCharsets.UTF_8));
+
+    static public String createToken(String usuario, String nivel) {
+        return Jwts.builder()
+                .setSubject(usuario)
+                .setIssuer("localhost:8080")
+                .claim("nivel", nivel)
+                .setIssuedAt(new Date())
+
+                .setExpiration(Date.from(LocalDateTime.now().plusHours(1L)
+                        .atZone(ZoneId.systemDefault()).toInstant()))
+                .signWith(CHAVE)
+                .compact();
     }
 
-    static public boolean verifyToken(String token)
-    {
+    static public boolean verifyToken(String token) {
         try {
             Jwts.parser()
-                .setSigningKey(CHAVE)
-                .build()
-                .parseClaimsJws(token).getSignature();
-                return true;
-       } catch (Exception e) {
-                System.out.println(e);
-       }
-       return false;       
+                    .setSigningKey(CHAVE)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+
+            System.out.println("Token inválido ou expirado: " + e.getMessage());
+            return false;
+        }
     }
 
-    static public Claims getAllClaimsFromToken(String token) 
-    {
-        Claims claims=null;
+    static public Claims getAllClaimsFromToken(String token) {
         try {
-            claims = Jwts.parser()
-            .setSigningKey(CHAVE)
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
-        } catch (Exception e) {
-            System.out.println("Erro ao recuperar as informações (claims)");
-        }
-        return claims;        
-    }
-    static public String getClaimFromToken(String token, String chave)
-    {
-        Claims claims=null;
-        try {
-            claims = Jwts.parser()
+            return Jwts.parser()
                     .setSigningKey(CHAVE)
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            System.out.println("Erro ao recuperar as informações (claims)");
+            System.out.println("Erro ao recuperar as informações (claims): " + e.getMessage());
+            return null;
         }
-        return claims.get(chave).toString();
     }
 
+    static public String getClaimFromToken(String token, String chave) {
+        Claims claims = getAllClaimsFromToken(token);
+
+        if (claims != null && claims.containsKey(chave)) {
+            return claims.get(chave).toString();
+        }
+        return null;
+    }
 }

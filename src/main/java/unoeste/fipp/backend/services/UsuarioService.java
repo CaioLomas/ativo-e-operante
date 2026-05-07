@@ -29,4 +29,9 @@ public class UsuarioService {
 
         return usuarioRepository.save(novoUsuario);
     }
+
+    public Usuario autenticar(String email, String senha) {
+
+        return usuarioRepository.findByEmailAndSenha(email, senha);
+    }
 }

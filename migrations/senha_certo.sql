@@ -1,0 +1,1 @@
+ALTER TABLE usuario ALTER COLUMN usu_senha TYPE VARCHAR(255);
