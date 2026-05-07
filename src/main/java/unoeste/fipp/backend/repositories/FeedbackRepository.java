@@ -9,4 +9,6 @@ import unoeste.fipp.backend.entities.Feedback;
 public interface FeedbackRepository extends JpaRepository<Feedback,Long> {
 
     public boolean existsByDenunciaId(Long id);
+
+    public Feedback findByDenunciaId(Long id);
 }

@@ -29,4 +29,11 @@ public class FeedbackService {
 
         return feedbackRepository.save(novoFeedback);
     }
+
+    public String consultaFeedbackByDenuncia(Long id){
+
+        Feedback found = feedbackRepository.findByDenunciaId(id);
+
+        return found != null ? found.getTexto() : "Feedback não encontrado";
+    }
 }

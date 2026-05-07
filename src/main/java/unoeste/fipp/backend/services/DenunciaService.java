@@ -18,10 +18,11 @@ public class DenunciaService {
     @Autowired
     private DenunciaRepository denunciaRepository;
 
-//    public Denuncia consultaDenuncia(Long id){
-//
-//        return denunciaRepository.findById(id).orElse(null);
-//    }
+    //ID PRECISA EXISTIR, é o ID que estou logado, não tem necessidade de validação aqui
+    public List<Denuncia> consultaDenunciasCidadao(Long id){
+
+        return denunciaRepository.findByUsuarioId(id);
+    }
 
     public List<Denuncia> consultaDenuncias(String titulo){
 
