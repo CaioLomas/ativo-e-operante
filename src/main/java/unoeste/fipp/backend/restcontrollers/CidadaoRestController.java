@@ -4,14 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import unoeste.fipp.backend.entities.Denuncia;
-import unoeste.fipp.backend.entities.Feedback;
 import unoeste.fipp.backend.entities.Orgao;
 import unoeste.fipp.backend.entities.Tipo;
-import unoeste.fipp.backend.services.DenunciaService;
-import unoeste.fipp.backend.services.FeedbackService;
-import unoeste.fipp.backend.services.OrgaoService;
-import unoeste.fipp.backend.services.TipoService;
+import unoeste.fipp.backend.services.*;
 
 import java.util.List;
 
@@ -33,7 +30,17 @@ public class CidadaoRestController {
     @Autowired
     private FeedbackService feedbackService;
 
-    public record FeedbackResponse(String texto){}
+    @Autowired
+    private ImagensService imagensService;
+
+    public record DenunciaDTO(
+            String titulo,
+            String texto,
+            int urgencia,
+            Long org_id,
+            Long tip_id,
+            Long usu_id
+    ){}
 
     @GetMapping("/orgao/list")
     public ResponseEntity<List<Orgao>> getOrgaos(@RequestParam(required = false) String nome){
@@ -53,6 +60,24 @@ public class CidadaoRestController {
         tipos = tipoService.consultaTipos(nome);
 
         return ResponseEntity.status(HttpStatus.OK).body(tipos);
+    }
+
+    /*      ENDPOINTS DENUNCIA      */
+
+    @PostMapping(value = "/denuncia", consumes = {"multipart/form-data"})
+    public ResponseEntity<Denuncia> postDenuncia(
+
+            @RequestPart("dados") DenunciaDTO denunciaDTO,
+
+            @RequestPart(value = "fotos", required = false) List<MultipartFile> fotos
+    )
+    {
+
+        Denuncia novaDenuncia = denunciaService.criaDenuncia(denunciaDTO);
+
+        imagensService.salvarImagens(fotos, novaDenuncia);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaDenuncia);
     }
 
     @GetMapping("/denuncia/list/{id}") // CORRIGIR QUANDO IMPLEMENTAR O JWT, POIS AQUI O ACESSO ESTÁ PÚBLICO PARA QUALQUER ID COLOCADO

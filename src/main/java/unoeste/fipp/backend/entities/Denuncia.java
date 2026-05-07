@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -59,7 +60,7 @@ public class Denuncia {
         this.data = data;
     }
 
-    public Denuncia(String titulo, String texto, int urgencia, Orgao orgao, Tipo tipo, Usuario usuario, LocalDate data) {
+    public Denuncia(String titulo, String texto, int urgencia, LocalDate data, Orgao orgao, Tipo tipo, Usuario usuario) {
         this(0L,titulo,texto,urgencia,orgao,tipo,usuario,data);
     }
 
