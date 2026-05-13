@@ -1,5 +1,6 @@
 package unoeste.fipp.backend.restcontrollers;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,7 +83,7 @@ public class CidadaoRestController {
     }
 
     @GetMapping("/denuncia/list")
-    public ResponseEntity<List<Denuncia>> getDenunciasCidadao(@RequestHeader("Authorization") String tokenHeader){
+    public ResponseEntity<List<Denuncia>> getDenunciasCidadao(@Parameter(hidden = true) @RequestHeader("Authorization") String tokenHeader){
 
         String token = tokenHeader.replace("Bearer ", "");
 

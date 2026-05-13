@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativo Operante - Administrador</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Área do Administrador</h1>
+        <nav>
+            <button id="btn-orgaos">Órgãos</button>
+            <button id="btn-tipos">Tipos de Problema</button>
+            <button id="btn-denuncias">Denúncias</button>
+            <button id="btn-logout">Sair</button>
+        </nav>
+    </header>
+
+    <main>
+
+        <section id="orgaos-section">
+            <h2>Gerenciar Órgãos Competentes</h2>
+            <form id="orgao-form">
+                <input type="hidden" id="orgao-id">
+                <label for="orgao-nome">Nome</label>
+                <input type="text" id="orgao-nome" required>
+                <button type="submit" id="orgao-submit">Salvar</button>
+            </form>
+            <div id="orgaos-lista"></div>
+        </section>
+
+        <section id="tipos-section">
+            <h2>Gerenciar Tipos de Problema</h2>
+            <form id="tipo-form">
+                <input type="hidden" id="tipo-id">
+                <label for="tipo-nome">Nome</label>
+                <input type="text" id="tipo-nome" required>
+                <button type="submit" id="tipo-submit">Salvar</button>
+            </form>
+            <div id="tipos-lista"></div>
+        </section>
+
+        <section id="denuncias-section">
+            <h2>Denúncias</h2>
+            <div id="denuncias-lista"></div>
+        </section>
+
+        <section id="feedback-section">
+            <h2>Registrar Feedback</h2>
+            <form id="feedback-form">
+                <input type="hidden" id="feedback-denuncia-id">
+                <label for="feedback-texto">Texto do Feedback</label>
+                <textarea id="feedback-texto" required></textarea>
+                <button type="submit">Enviar Feedback</button>
+            </form>
+        </section>
+
+    </main>
+
+    <script src="/assets/script.js"></script>
+</body>
+</html>
