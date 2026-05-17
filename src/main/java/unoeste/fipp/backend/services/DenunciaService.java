@@ -58,7 +58,7 @@ public class DenunciaService {
 
     public List<Denuncia> consultaDenuncias(String titulo){
 
-        if(titulo != null || titulo.trim().isEmpty())
+        if(titulo == null || titulo.trim().isEmpty())
             return denunciaRepository.findAll();
 
         return denunciaRepository.findByTituloIsContainingIgnoreCase(titulo);

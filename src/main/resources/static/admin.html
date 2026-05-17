@@ -7,56 +7,63 @@
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-
     <header>
         <h1>Área do Administrador</h1>
+        <p id="user-info"></p>
         <nav>
-            <button id="btn-orgaos">Órgãos</button>
-            <button id="btn-tipos">Tipos de Problema</button>
-            <button id="btn-denuncias">Denúncias</button>
+            <button class="nav-btn active" data-section="orgaos-section">Órgãos</button>
+            <button class="nav-btn" data-section="tipos-section">Tipos</button>
+            <button class="nav-btn" data-section="denuncias-section">Denúncias</button>
             <button id="btn-logout">Sair</button>
         </nav>
     </header>
 
     <main>
+        <div id="mensagem"></div>
 
         <section id="orgaos-section">
             <h2>Gerenciar Órgãos Competentes</h2>
             <form id="orgao-form">
                 <input type="hidden" id="orgao-id">
-                <label for="orgao-nome">Nome</label>
+                <label for="orgao-nome">Nome do Órgão</label>
                 <input type="text" id="orgao-nome" required>
                 <button type="submit" id="orgao-submit">Salvar</button>
+                <button type="button" id="orgao-cancelar" style="display:none">Cancelar</button>
             </form>
             <div id="orgaos-lista"></div>
         </section>
 
-        <section id="tipos-section">
+        <section id="tipos-section" style="display:none">
             <h2>Gerenciar Tipos de Problema</h2>
             <form id="tipo-form">
                 <input type="hidden" id="tipo-id">
-                <label for="tipo-nome">Nome</label>
+                <label for="tipo-nome">Nome do Tipo</label>
                 <input type="text" id="tipo-nome" required>
                 <button type="submit" id="tipo-submit">Salvar</button>
+                <button type="button" id="tipo-cancelar" style="display:none">Cancelar</button>
             </form>
             <div id="tipos-lista"></div>
         </section>
 
-        <section id="denuncias-section">
+        <section id="denuncias-section" style="display:none">
             <h2>Denúncias</h2>
+            <label for="filtro-titulo">Filtrar por título:</label>
+            <input type="text" id="filtro-titulo" placeholder="Digite parte do título...">
+            <button id="btn-filtrar">Filtrar</button>
             <div id="denuncias-lista"></div>
         </section>
 
-        <section id="feedback-section">
+        <section id="feedback-section" style="display:none">
             <h2>Registrar Feedback</h2>
+            <p id="feedback-denuncia-info"></p>
             <form id="feedback-form">
                 <input type="hidden" id="feedback-denuncia-id">
                 <label for="feedback-texto">Texto do Feedback</label>
                 <textarea id="feedback-texto" required></textarea>
                 <button type="submit">Enviar Feedback</button>
+                <button type="button" id="feedback-cancelar">Cancelar</button>
             </form>
         </section>
-
     </main>
 
     <script src="/assets/script.js"></script>

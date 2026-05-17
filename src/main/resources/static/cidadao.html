@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-
     <header>
         <h1>Área do Cidadão</h1>
+        <p id="user-info"></p>
         <nav>
-            <button id="btn-nova-denuncia">Nova Denúncia</button>
-            <button id="btn-minhas-denuncias">Minhas Denúncias</button>
+            <button class="nav-btn active" data-section="criar-denuncia-section">Nova Denúncia</button>
+            <button class="nav-btn" data-section="minhas-denuncias-section">Minhas Denúncias</button>
             <button id="btn-logout">Sair</button>
         </nav>
     </header>
 
     <main>
+        <div id="mensagem"></div>
 
         <section id="criar-denuncia-section">
             <h2>Criar Denúncia</h2>
@@ -44,16 +45,16 @@
             </form>
         </section>
 
-        <section id="minhas-denuncias-section">
+        <section id="minhas-denuncias-section" style="display:none">
             <h2>Minhas Denúncias</h2>
             <div id="denuncias-lista"></div>
         </section>
 
-        <section id="feedback-section">
+        <section id="feedback-section" style="display:none">
             <h2>Feedback</h2>
             <div id="feedback-conteudo"></div>
+            <button id="btn-voltar-feedback" style="margin-top:1rem">Voltar</button>
         </section>
-
     </main>
 
     <script src="/assets/script.js"></script>
